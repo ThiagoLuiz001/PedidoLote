@@ -1,12 +1,13 @@
+using MyRH_DP;
 using System;
 using System.Data;
 using System.Windows.Forms;
 
 namespace PedidoLote
 {
-    public partial class Form1 : Form
+    public partial class Inicial : Form
     {
-        public Form1()
+        public Inicial()
         {
             InitializeComponent();
         }
@@ -24,7 +25,7 @@ namespace PedidoLote
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            GradePedido.Rows.Clear();
+            GradePedido.Rows.Clear();   
         }
 
         private void GradePedido_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -45,14 +46,28 @@ namespace PedidoLote
 
         private void BtnLancar_Click(object sender, EventArgs e)
         {
+            Conexao conexao = new();
             List<string> pedidos = new List<string>();
-            Impressao impressao = new Impressao();  
-            for(int i = 0; i < GradePedido.Rows.Count; i++)
+            Impressao impressao = new();
+            if (GradePedido.Rows.Count > 0)
             {
-                pedidos.Add(GradePedido.Rows[i].Cells[0].Value.ToString());
+                for (int i = 0; i < GradePedido.Rows.Count; i++)
+                {
+                    pedidos.Add(GradePedido.Rows[i].Cells[0].Value.ToString());
+                }
+                if (pedidos.Count > 0)
+                {
+                    conexao.DadosGrade(pedidos, pedidos.Count);
+                }
+                else
+                {
+                    MessageBox.Show("Grade esta sem valor");
+                }
             }
-            impressao.lista = pedidos;
-            
+            else
+            {
+                MessageBox.Show("Não há pedidos solicitados");
+            }
         }
     }
 } 

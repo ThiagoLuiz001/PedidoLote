@@ -1,6 +1,6 @@
 ﻿namespace PedidoLote
 {
-    partial class Form1
+    partial class Inicial
     {
         /// <summary>
         ///  Required designer variable.
